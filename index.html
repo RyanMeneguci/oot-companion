@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OoT Companion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <h1>🎵 OoT Companion</h1>
+        <h2>Ocarina of Time Checklist</h2>
+
+	<div class="progress">
+   	 <h3>Progresso Geral</h3>
+   	    🕷 Gold Skulltulas: <span id="skullCount">0</span>/100<br>
+   	    ❤️ Heart Pieces: <span id="heartCount">0</span>/36<br>
+   	    🎵 Songs: <span id="songCount">0</span>/12<br>
+   	    🧚 Great Fairies: <span id="fairyCount">0</span>/6<br>
+   	    🌱 Magic Beans: <span id="beanCount">0</span>/10<br>
+   	    🏆 Conclusão: <span id="completion">0</span>%<br>
+    	   <span id="dungeonCount">0/11</span> Dungeons completas
+	</div>
+
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="🔎 Buscar item..." 
+                   style="flex: 1; padding: 12px; border-radius: 25px; border: none; background: #333; color: white;">
+
+            <button class="filter-btn active" data-type="all">Todos</button>
+            <button class="filter-btn" data-type="goldSkulltula">🕷 Skulltulas</button>
+            <button class="filter-btn" data-type="heartPiece">❤️ Heart Pieces</button>
+            <button class="filter-btn" data-type="song">🎵 Songs</button>
+            <button class="filter-btn" data-type="greatFairy">🧚 Fairies</button>
+            <button class="filter-btn" data-type="magicBean">🌱 Beans</button>
+        </div>
+
+        <h2>Regiões</h2>
+        <div class="regions-container" id="regions-container"></div>
+
+        <h2>Dungeons</h2>
+        <div class="regions-container" id="dungeons-container"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
