@@ -182,8 +182,7 @@ function applyGlobalFilter() {
         content.classList.remove('show');
     });
 
-    // Sem filtro de tipo e sem busca: não há o que abrir automaticamente
-    if (currentFilter === "all" && !searchTerm) return;
+    const noFilterActive = currentFilter === "all" && !searchTerm;
 
     Object.keys(regions).forEach(regionName => {
         const hasMatchingItem = regions[regionName].some(item => {
@@ -193,7 +192,13 @@ function applyGlobalFilter() {
                 || (item.note || "").toLowerCase().includes(searchTerm);
             return matchesType && matchesSearch;
         });
-        if (hasMatchingItem) {
+
+        const els = regionElements[regionName];
+        if (els) {
+            els.group.style.display = (noFilterActive || hasMatchingItem) ? "" : "none";
+        }
+
+        if (!noFilterActive && hasMatchingItem) {
             renderAndShowRegion(regionName);
         }
     });
