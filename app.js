@@ -33,14 +33,29 @@ function generateRegions() {
     });
 }
 
+// Guarda referências dos elementos de cada região pra atualizar sem recriar tudo
+const regionElements = {};
+
 function createRegionGroup(regionName, isDungeon) {
     const div = document.createElement("div");
     div.className = "region-group";
 
     const button = document.createElement("button");
     if (isDungeon) button.classList.add("dungeon-btn");
-    button.textContent = `${regionName} ${isDungeon ? '🏰' : ''}`;
     button.addEventListener("click", () => openRegion(regionName));
+
+    const label = document.createElement("span");
+    label.className = "region-btn-label";
+    label.textContent = `${regionName} ${isDungeon ? '🏰' : ''}`;
+
+    const progressTrack = document.createElement("div");
+    progressTrack.className = "region-progress-track";
+    const progressFill = document.createElement("div");
+    progressFill.className = "region-progress-fill";
+    progressTrack.appendChild(progressFill);
+
+    button.appendChild(label);
+    button.appendChild(progressTrack);
 
     const content = document.createElement("div");
     content.id = regionName;
@@ -48,7 +63,29 @@ function createRegionGroup(regionName, isDungeon) {
 
     div.appendChild(button);
     div.appendChild(content);
+
+    regionElements[regionName] = { group: div, label, progressFill };
+
     return div;
+}
+
+// ==================== FEEDBACK VISUAL DE PROGRESSO POR REGIÃO ====================
+function updateRegionButtonStates() {
+    Object.keys(regions).forEach(regionName => {
+        const els = regionElements[regionName];
+        if (!els) return;
+
+        const items = regions[regionName];
+        const total = items.length;
+        const completedCount = items.filter(item => progress[item.id]).length;
+        const percent = total ? Math.round((completedCount / total) * 100) : 0;
+        const isComplete = total > 0 && completedCount === total;
+        const isDungeon = dungeonsList.includes(regionName);
+
+        els.progressFill.style.width = `${percent}%`;
+        els.label.textContent = `${isComplete ? '✅ ' : ''}${regionName} ${isDungeon ? '🏰' : ''}`;
+        els.group.classList.toggle('region-complete', isComplete);
+    });
 }
 
 // ==================== OPEN REGION (múltiplas regiões abertas) ====================
@@ -81,7 +118,11 @@ function openRegion(regionName) {
 
         regions[regionName].forEach(item => {
             if (currentFilter !== "all" && item.type !== currentFilter) return;
-            if (searchTerm && !item.name.toLowerCase().includes(searchTerm)) return;
+            if (searchTerm) {
+                const matchesName = item.name.toLowerCase().includes(searchTerm);
+                const matchesNote = (item.note || "").toLowerCase().includes(searchTerm);
+                if (!matchesName && !matchesNote) return;
+            }
 
             const checked = progress[item.id] ? "checked" : "";
             let icon = "";
@@ -102,8 +143,9 @@ function openRegion(regionName) {
                     <input type="checkbox" onchange="toggleItem('${item.id}')" ${checked}>
                     <strong>${icon} ${item.name}</strong>
                 </label>
-                <div>${ageText} • ${timeText}</div>
+                <div class="item-meta">${ageText} • ${timeText}</div>
                 <small>${item.note || ''}</small>
+                ${item.wikiImage ? `<a href="${item.wikiImage}" target="_blank" rel="noopener noreferrer" class="wiki-link">📍 Ver imagem da localização</a>` : ''}
             </div>`;
         });
     }
@@ -126,7 +168,9 @@ function applyGlobalFilter() {
     Object.keys(regions).forEach(regionName => {
         const hasMatchingItem = regions[regionName].some(item => {
             const matchesType = currentFilter === "all" || item.type === currentFilter;
-            const matchesSearch = !searchTerm || item.name.toLowerCase().includes(searchTerm);
+            const matchesSearch = !searchTerm
+                || item.name.toLowerCase().includes(searchTerm)
+                || (item.note || "").toLowerCase().includes(searchTerm);
             return matchesType && matchesSearch;
         });
         if (hasMatchingItem) {
@@ -180,6 +224,8 @@ function updateProgress() {
     if (songEl) songEl.textContent = songs;
     if (fairyEl) fairyEl.textContent = fairies;
     if (beanEl) beanEl.textContent = beans;
+
+    updateRegionButtonStates();
 }
 
 // ==================== EVENTOS (um único DOMContentLoaded) ====================
