@@ -88,17 +88,10 @@ function updateRegionButtonStates() {
     });
 }
 
-// ==================== OPEN REGION (múltiplas regiões abertas) ====================
-function openRegion(regionName) {
+// ==================== RENDERIZA E MOSTRA UMA REGIÃO (sem mexer nas outras) ====================
+function renderAndShowRegion(regionName) {
     const content = document.getElementById(regionName);
     if (!content) return;
-
-    const isCurrentlyOpen = content.classList.contains('show');
-
-    if (isCurrentlyOpen) {
-        content.classList.remove('show');
-        return;
-    }
 
     let html = `<h3>${regionName}</h3>`;
 
@@ -107,7 +100,7 @@ function openRegion(regionName) {
         html += `
         <div class="dungeon-complete">
             <label>
-                <input type="checkbox" onchange="toggleDungeon('${regionName}')" ${checked}>
+                <input type="checkbox" class="dungeon-checkbox" ${checked}>
                 <strong>🏆 Marcar como Completada</strong>
             </label>
         </div>`;
@@ -140,7 +133,7 @@ function openRegion(regionName) {
             html += `
             <div class="item">
                 <label>
-                    <input type="checkbox" onchange="toggleItem('${item.id}')" ${checked}>
+                    <input type="checkbox" class="item-checkbox" data-item-id="${item.id}" ${checked}>
                     <strong>${icon} ${item.name}</strong>
                 </label>
                 <div class="item-meta">${ageText} • ${timeText}</div>
@@ -152,6 +145,33 @@ function openRegion(regionName) {
 
     content.innerHTML = html || `<p style="color:#888;">Nenhum item encontrado.</p>`;
     content.classList.add('show');
+
+    const dungeonCheckbox = content.querySelector('.dungeon-checkbox');
+    if (dungeonCheckbox) {
+        dungeonCheckbox.addEventListener('change', () => toggleDungeon(regionName));
+    }
+
+    content.querySelectorAll('.item-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', () => toggleItem(checkbox.dataset.itemId));
+    });
+}
+
+// ==================== OPEN REGION (clique manual: só uma aberta por vez) ====================
+function openRegion(regionName) {
+    const content = document.getElementById(regionName);
+    if (!content) return;
+
+    const isCurrentlyOpen = content.classList.contains('show');
+
+    // Fecha todas as regiões abertas (inclusive a atual, se já estiver aberta)
+    document.querySelectorAll(".content.show").forEach(el => el.classList.remove('show'));
+
+    if (isCurrentlyOpen) {
+        // Já estava aberta: só fecha (comportamento de clicar de novo pra recolher)
+        return;
+    }
+
+    renderAndShowRegion(regionName);
 }
 
 // ==================== FILTRO GLOBAL (abre regiões relevantes) ====================
@@ -174,7 +194,7 @@ function applyGlobalFilter() {
             return matchesType && matchesSearch;
         });
         if (hasMatchingItem) {
-            openRegion(regionName);
+            renderAndShowRegion(regionName);
         }
     });
 }
