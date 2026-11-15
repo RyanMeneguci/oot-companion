@@ -234,6 +234,34 @@ h3 {
     transition: background 0.2s, color 0.2s;
 }
 
+.age-bar {
+    margin-top: 8px;
+}
+
+.age-btn {
+    flex: 1 1 auto;
+    padding: 9px 14px;
+    border-radius: 7px;
+    background: transparent;
+    color: #cbb988;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.age-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold-bright);
+}
+
+.age-btn.active {
+    background: linear-gradient(160deg, var(--gold-bright), var(--gold-dim));
+    color: #241509;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
 .filter-btn:hover {
     background: rgba(212, 175, 55, 0.15);
     color: var(--gold-bright);

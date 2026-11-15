@@ -1,5 +1,11 @@
 let progress = JSON.parse(localStorage.getItem("ootProgress")) || {};
 let currentFilter = "all";
+let currentAge = "all";
+
+// Item serve para a idade escolhida se for da idade, ou "any" (qualquer uma)
+function matchesAge(item) {
+    return currentAge === "all" || item.age === "any" || item.age === currentAge;
+}
 
 const dungeonsList = [
     "Deku Tree",
@@ -111,6 +117,7 @@ function renderAndShowRegion(regionName) {
 
         regions[regionName].forEach(item => {
             if (currentFilter !== "all" && item.type !== currentFilter) return;
+            if (!matchesAge(item)) return;
             if (searchTerm) {
                 const matchesName = item.name.toLowerCase().includes(searchTerm);
                 const matchesNote = (item.note || "").toLowerCase().includes(searchTerm);
@@ -182,7 +189,7 @@ function applyGlobalFilter() {
         content.classList.remove('show');
     });
 
-    const noFilterActive = currentFilter === "all" && !searchTerm;
+    const noFilterActive = currentFilter === "all" && currentAge === "all" && !searchTerm;
 
     Object.keys(regions).forEach(regionName => {
         const hasMatchingItem = regions[regionName].some(item => {
@@ -190,7 +197,7 @@ function applyGlobalFilter() {
             const matchesSearch = !searchTerm
                 || item.name.toLowerCase().includes(searchTerm)
                 || (item.note || "").toLowerCase().includes(searchTerm);
-            return matchesType && matchesSearch;
+            return matchesType && matchesSearch && matchesAge(item);
         });
 
         const els = regionElements[regionName];
@@ -261,6 +268,16 @@ document.addEventListener("DOMContentLoaded", () => {
             this.classList.add("active");
 
             currentFilter = this.dataset.type;
+            applyGlobalFilter();
+        });
+    });
+
+    document.querySelectorAll(".age-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            document.querySelectorAll(".age-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+
+            currentAge = this.dataset.age;
             applyGlobalFilter();
         });
     });
