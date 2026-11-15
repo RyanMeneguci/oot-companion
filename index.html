@@ -4,40 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OoT Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app">
-        <h1>🎵 OoT Companion</h1>
-        <h2>Ocarina of Time Checklist</h2>
 
-	<div class="progress">
-   	 <h3>Progresso Geral</h3>
-   	    🕷 Gold Skulltulas: <span id="skullCount">0</span>/100<br>
-   	    ❤️ Heart Pieces: <span id="heartCount">0</span>/36<br>
-   	    🎵 Songs: <span id="songCount">0</span>/12<br>
-   	    🧚 Great Fairies: <span id="fairyCount">0</span>/6<br>
-   	    🌱 Magic Beans: <span id="beanCount">0</span>/10<br>
-   	    🏆 Conclusão: <span id="completion">0</span>%<br>
-    	   <span id="dungeonCount">0/11</span> Dungeons completas
-	</div>
+        <!-- Cantos ornamentados -->
+        <span class="corner corner-tl"></span>
+        <span class="corner corner-tr"></span>
+        <span class="corner corner-bl"></span>
+        <span class="corner corner-br"></span>
 
-        <div class="filters">
-            <input type="text" id="searchInput" placeholder="🔎 Buscar item..." 
-                   style="flex: 1; padding: 12px; border-radius: 25px; border: none; background: #333; color: white;">
-
-            <button class="filter-btn active" data-type="all">Todos</button>
-            <button class="filter-btn" data-type="goldSkulltula">🕷 Skulltulas</button>
-            <button class="filter-btn" data-type="heartPiece">❤️ Heart Pieces</button>
-            <button class="filter-btn" data-type="song">🎵 Songs</button>
-            <button class="filter-btn" data-type="greatFairy">🧚 Fairies</button>
-            <button class="filter-btn" data-type="magicBean">🌱 Beans</button>
+        <div class="title-frame">
+            <h1>Ocarina of Time</h1>
+            <h2 class="subtitle">OoT Companion &bull; Checklist de 100%</h2>
         </div>
 
-        <h2>Regiões</h2>
+        <div class="progress">
+            <div class="progress-header">
+                <h3>Progresso Geral</h3>
+                <div class="completion-badge">
+                    <span id="completion">0</span><span class="pct-sign">%</span>
+                </div>
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-slot">
+                    <span class="stat-icon">🕷</span>
+                    <span class="stat-label">Gold Skulltulas</span>
+                    <span class="stat-value"><span id="skullCount">0</span>/100</span>
+                </div>
+                <div class="stat-slot">
+                    <span class="stat-icon">❤️</span>
+                    <span class="stat-label">Heart Pieces</span>
+                    <span class="stat-value"><span id="heartCount">0</span>/36</span>
+                </div>
+                <div class="stat-slot">
+                    <span class="stat-icon">🎵</span>
+                    <span class="stat-label">Songs</span>
+                    <span class="stat-value"><span id="songCount">0</span>/12</span>
+                </div>
+                <div class="stat-slot">
+                    <span class="stat-icon">🧚</span>
+                    <span class="stat-label">Great Fairies</span>
+                    <span class="stat-value"><span id="fairyCount">0</span>/6</span>
+                </div>
+                <div class="stat-slot">
+                    <span class="stat-icon">🌱</span>
+                    <span class="stat-label">Magic Beans</span>
+                    <span class="stat-value"><span id="beanCount">0</span>/10</span>
+                </div>
+                <div class="stat-slot">
+                    <span class="stat-icon">🏰</span>
+                    <span class="stat-label">Dungeons</span>
+                    <span class="stat-value"><span id="dungeonCount">0/11</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="🔎 Buscar item...">
+
+            <div class="tab-bar">
+                <button class="filter-btn active" data-type="all">Todos</button>
+                <button class="filter-btn" data-type="goldSkulltula">🕷 Skulltulas</button>
+                <button class="filter-btn" data-type="heartPiece">❤️ Hearts</button>
+                <button class="filter-btn" data-type="song">🎵 Songs</button>
+                <button class="filter-btn" data-type="greatFairy">🧚 Fairies</button>
+                <button class="filter-btn" data-type="magicBean">🌱 Beans</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">Regiões</h2>
         <div class="regions-container" id="regions-container"></div>
 
-        <h2>Dungeons</h2>
+        <h2 class="section-title">Dungeons</h2>
         <div class="regions-container" id="dungeons-container"></div>
     </div>
 
