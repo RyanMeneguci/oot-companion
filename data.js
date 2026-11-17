@@ -216,7 +216,7 @@ const regions = {
     ],
 
     "Jabu-Jabu's Belly": [
-        { id: "JB_GS_31", type: "goldSkulltula", name: "Sala do Interruptor", age: "child", time: "any", note: "Skulltula #31 - Depois de resgatar a Ruto e cair, leve-a até a sala com o interruptor de chão. A Skulltula está na parede lateral; use o Estilingue.", wikiImage: "https://www.zeldadungeon.net/wiki/File:OoT-Gold-Skulltula-031.jpg" },
+        { id: "JB_GS_31", type: "goldSkulltula", name: "Sala do Mapa (acima das vinhas)", age: "child", time: "any", note: "Skulltula #31 - REMAKE: fica na sala do mapa (Map Room), na parede oposta ao baú. Suba pelas vinhas e acerte a Skulltula com o Estilingue.", wikiImage: "https://www.videogameschronicle.com/files/2026/11/IMG_7977.jpg" },
         { id: "JB_GS_32", type: "goldSkulltula", name: "Andar Inferior Parede Próxima", age: "child", time: "any", note: "Skulltula #32 - Na segunda vez que você cai para o andar de baixo, há duas Skulltulas na parede. Derrote-as e use o Boomerang na mais próxima.", wikiImage: "https://www.zeldadungeon.net/wiki/File:OoT-Gold-Skulltula-032.jpg" },
         { id: "JB_GS_33", type: "goldSkulltula", name: "Andar Inferior Parede Distante", age: "child", time: "any", note: "Skulltula #33 - Na mesma sala do #32, use o Boomerang para pegar o token da Skulltula mais distante.", wikiImage: "https://www.zeldadungeon.net/wiki/File:OoT-Gold-Skulltula-033.jpg" },
         { id: "JB_GS_34", type: "goldSkulltula", name: "Vinhas antes do Boss", age: "child", time: "any", note: "Skulltula #34 - Na sala final antes do boss, a Skulltula está nas vinhas. Derrote-a e pegue o token.", wikiImage: "https://www.videogameschronicle.com/files/2026/11/vlcsnap-2026-11-05-21h33m21s229.jpg" }
