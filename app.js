@@ -253,12 +253,13 @@ function toggleDungeon(dungeonName) {
 }
 
 function updateProgress() {
-    let skulls = 0, hearts = 0, songs = 0, fairies = 0, beans = 0, quests = 0, questsTotal = 0, total = 0, completed = 0, dungeonsDone = 0;
+    let skulls = 0, hearts = 0, songs = 0, fairies = 0, beans = 0, maskDone = 0, maskTotal = 0, swordDone = 0, swordTotal = 0, total = 0, completed = 0, dungeonsDone = 0;
 
     Object.values(regions).forEach(region => {
         region.forEach(item => {
             total++;
-            if (item.type === "sideQuest") questsTotal++;
+            if (item.id.startsWith("MASK_")) maskTotal++;
+            if (item.id.startsWith("BG_")) swordTotal++;
             if (progress[item.id]) {
                 completed++;
                 if (item.type === "goldSkulltula") skulls++;
@@ -266,7 +267,8 @@ function updateProgress() {
                 if (item.type === "song") songs++;
                 if (item.type === "greatFairy") fairies++;
                 if (item.type === "magicBean") beans++;
-                if (item.type === "sideQuest") quests++;
+                if (item.id.startsWith("MASK_")) maskDone++;
+                if (item.id.startsWith("BG_")) swordDone++;
             }
         });
     });
@@ -286,8 +288,10 @@ function updateProgress() {
     if (songEl) songEl.textContent = songs;
     if (fairyEl) fairyEl.textContent = fairies;
     if (beanEl) beanEl.textContent = beans;
-    const questEl = document.getElementById("questCount");
-    if (questEl) questEl.textContent = `${quests}/${questsTotal}`;
+    const maskEl = document.getElementById("maskCount");
+    const swordEl = document.getElementById("swordCount");
+    if (maskEl) maskEl.textContent = `${maskDone}/${maskTotal}`;
+    if (swordEl) swordEl.textContent = `${swordDone}/${swordTotal}`;
 
     updateRegionButtonStates();
 }
