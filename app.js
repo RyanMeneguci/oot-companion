@@ -132,7 +132,8 @@ function renderAndShowRegion(regionName) {
                 case "song":          icon = "🎵"; break;
                 case "greatFairy":    icon = "🧚"; break;
                 case "magicBean":     icon = "🌱"; break;
-                case "sideQuest":     icon = "📜"; break;
+                case "maskQuest":     icon = "🎭"; break;
+                case "swordQuest":    icon = "⚔️"; break;
             }
             if (item.icon) icon = item.icon;
 
