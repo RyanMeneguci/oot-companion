@@ -132,18 +132,24 @@ function renderAndShowRegion(regionName) {
                 case "song":          icon = "🎵"; break;
                 case "greatFairy":    icon = "🧚"; break;
                 case "magicBean":     icon = "🌱"; break;
+                case "sideQuest":     icon = "📜"; break;
             }
+            if (item.icon) icon = item.icon;
+
+            // Passo travado: só libera depois que o anterior estiver marcado
+            const locked = item.requires && !progress[item.requires];
 
             const ageText = item.age === "child" ? "👦 Child" : item.age === "adult" ? "🧔 Adult" : "👦🧔 Both";
             const timeText = item.time === "night" ? "🌙 Night" : "☀️🌙 Any";
 
             html += `
-            <div class="item">
+            <div class="item${locked ? ' locked' : ''}">
                 <label>
-                    <input type="checkbox" class="item-checkbox" data-item-id="${item.id}" ${checked}>
+                    <input type="checkbox" class="item-checkbox" data-item-id="${item.id}" ${checked} ${locked ? 'disabled' : ''}>
                     <strong>${icon} ${item.name}</strong>
                 </label>
                 <div class="item-meta">${ageText} • ${timeText}</div>
+                ${locked ? '<div class="lock-note">🔒 Conclua o passo anterior para liberar este.</div>' : ''}
                 <small>${item.note || ''}</small>
                 ${item.wikiImage ? `<a href="${item.wikiImage}" target="_blank" rel="noopener noreferrer" class="wiki-link">📍 Ver imagem da localização</a>` : ''}
             </div>`;
@@ -214,8 +220,30 @@ function applyGlobalFilter() {
 // ==================== TOGGLES ====================
 function toggleItem(itemId) {
     progress[itemId] = !progress[itemId];
+
+    // Desmarcar um passo desmarca os seguintes (cascata)
+    if (!progress[itemId]) {
+        let changed = true;
+        while (changed) {
+            changed = false;
+            Object.values(regions).forEach(list => list.forEach(it => {
+                if (it.requires && progress[it.id] && !progress[it.requires]) {
+                    progress[it.id] = false;
+                    changed = true;
+                }
+            }));
+        }
+    }
+
     localStorage.setItem("ootProgress", JSON.stringify(progress));
     updateProgress();
+
+    // Se a região tem passos encadeados, redesenha para atualizar os cadeados
+    Object.keys(regions).forEach(regionName => {
+        if (regions[regionName].some(it => it.id === itemId) && regions[regionName].some(it => it.requires)) {
+            renderAndShowRegion(regionName);
+        }
+    });
 }
 
 function toggleDungeon(dungeonName) {
@@ -225,11 +253,12 @@ function toggleDungeon(dungeonName) {
 }
 
 function updateProgress() {
-    let skulls = 0, hearts = 0, songs = 0, fairies = 0, beans = 0, total = 0, completed = 0, dungeonsDone = 0;
+    let skulls = 0, hearts = 0, songs = 0, fairies = 0, beans = 0, quests = 0, questsTotal = 0, total = 0, completed = 0, dungeonsDone = 0;
 
     Object.values(regions).forEach(region => {
         region.forEach(item => {
             total++;
+            if (item.type === "sideQuest") questsTotal++;
             if (progress[item.id]) {
                 completed++;
                 if (item.type === "goldSkulltula") skulls++;
@@ -237,6 +266,7 @@ function updateProgress() {
                 if (item.type === "song") songs++;
                 if (item.type === "greatFairy") fairies++;
                 if (item.type === "magicBean") beans++;
+                if (item.type === "sideQuest") quests++;
             }
         });
     });
@@ -256,6 +286,8 @@ function updateProgress() {
     if (songEl) songEl.textContent = songs;
     if (fairyEl) fairyEl.textContent = fairies;
     if (beanEl) beanEl.textContent = beans;
+    const questEl = document.getElementById("questCount");
+    if (questEl) questEl.textContent = `${quests}/${questsTotal}`;
 
     updateRegionButtonStates();
 }
