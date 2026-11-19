@@ -101,7 +101,7 @@ const regions = {
 
     "Goron City": [
         { id: "GC_GS_26", type: "goldSkulltula", name: "Caixa após as Pedras", age: "child", time: "any", note: "Skulltula #26 - Bombardeie as três pedras à esquerda, depois as da direita, e role na caixa de madeira no fundo da sala.", wikiImage: "https://www.videogameschronicle.com/files/2026/11/IMG_7996.jpg" },
-        { id: "GC_GS_56", type: "goldSkulltula", name: "Teto da Cidade Goron", age: "any", time: "any", note: "Skulltula #56 - Ao entrar em Goron City, siga para o norte e vire-se: a Skulltula está no teto.", wikiImage: "https://www.videogameschronicle.com/files/2026/11/IMG_7991.jpg" },
+        { id: "GC_GS_56", type: "goldSkulltula", name: "Teto da Cidade Goron", age: "adult", time: "any", note: "Skulltula #56 - Ao entrar em Goron City, siga para o norte e vire-se: a Skulltula está no teto. Só como adulto: como criança ela não aparece.", wikiImage: "https://www.videogameschronicle.com/files/2026/11/IMG_7991.jpg" },
 
         { id: "GC_HP_10", type: "heartPiece", name: "Vaso Giratório", age: "child", time: "any", note: "Heart Piece #10 - Depois de conseguir a Goron's Bracelet, acenda todas as tochas do andar mais baixo (com Deku Stick ou Din's Fire) para o vaso com rosto de Goron começar a girar. Jogue Bombs ou Bomb Flowers nele quando o rosto virado pra você estiver sorrindo.", wikiImage: "https://images.keengamer.com/wp-content/uploads/2026/11/Spinning-Goron-Pot.jpg" }
     ],
