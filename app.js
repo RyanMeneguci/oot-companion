@@ -7,6 +7,9 @@ function matchesAge(item) {
     return currentAge === "all" || item.age === "any" || item.age === currentAge;
 }
 
+// Seções separadas da lista de Regiões
+const extrasList = ["Troca de Máscaras", "Troca de Itens (Biggoron)", "Bolsas e Upgrades"];
+
 const dungeonsList = [
     "Deku Tree",
     "Dodongo's Cavern",
@@ -25,17 +28,35 @@ const dungeonsList = [
 function generateRegions() {
     const regionContainer = document.getElementById("regions-container");
     const dungeonContainer = document.getElementById("dungeons-container");
+    const extrasContainer = document.getElementById("extras-container");
 
     regionContainer.innerHTML = "";
     dungeonContainer.innerHTML = "";
+    extrasContainer.innerHTML = "";
 
     Object.keys(regions).forEach(regionName => {
         if (dungeonsList.includes(regionName)) return;
+        if (extrasList.includes(regionName)) return;
         regionContainer.appendChild(createRegionGroup(regionName, false));
     });
 
     dungeonsList.forEach(dungeonName => {
         dungeonContainer.appendChild(createRegionGroup(dungeonName, true));
+    });
+
+    extrasList.forEach(name => {
+        if (regions[name]) extrasContainer.appendChild(createRegionGroup(name, false));
+    });
+}
+
+// Esconde o título de uma seção quando o filtro esconde todas as suas regiões
+function updateSectionTitles() {
+    [["regions-container", "title-regions"], ["dungeons-container", "title-dungeons"], ["extras-container", "title-extras"]].forEach(([cid, tid]) => {
+        const container = document.getElementById(cid);
+        const title = document.getElementById(tid);
+        if (!container || !title) return;
+        const anyVisible = Array.from(container.children).some(g => g.style.display !== "none");
+        title.style.display = anyVisible ? "" : "none";
     });
 }
 
@@ -216,6 +237,8 @@ function applyGlobalFilter() {
             renderAndShowRegion(regionName);
         }
     });
+
+    updateSectionTitles();
 }
 
 // ==================== TOGGLES ====================
