@@ -254,13 +254,14 @@ function toggleDungeon(dungeonName) {
 }
 
 function updateProgress() {
-    let skulls = 0, hearts = 0, songs = 0, fairies = 0, beans = 0, maskDone = 0, maskTotal = 0, swordDone = 0, swordTotal = 0, total = 0, completed = 0, dungeonsDone = 0;
+    let skulls = 0, hearts = 0, songs = 0, fairies = 0, beans = 0, maskDone = 0, maskTotal = 0, swordDone = 0, swordTotal = 0, bagDone = 0, bagTotal = 0, total = 0, completed = 0, dungeonsDone = 0;
 
     Object.values(regions).forEach(region => {
         region.forEach(item => {
             total++;
             if (item.id.startsWith("MASK_")) maskTotal++;
             if (item.id.startsWith("BG_")) swordTotal++;
+            if (item.id.startsWith("BAG_")) bagTotal++;
             if (progress[item.id]) {
                 completed++;
                 if (item.type === "goldSkulltula") skulls++;
@@ -270,6 +271,7 @@ function updateProgress() {
                 if (item.type === "magicBean") beans++;
                 if (item.id.startsWith("MASK_")) maskDone++;
                 if (item.id.startsWith("BG_")) swordDone++;
+                if (item.id.startsWith("BAG_")) bagDone++;
             }
         });
     });
@@ -293,6 +295,8 @@ function updateProgress() {
     const swordEl = document.getElementById("swordCount");
     if (maskEl) maskEl.textContent = `${maskDone}/${maskTotal}`;
     if (swordEl) swordEl.textContent = `${swordDone}/${swordTotal}`;
+    const bagEl = document.getElementById("bagCount");
+    if (bagEl) bagEl.textContent = `${bagDone}/${bagTotal}`;
 
     updateRegionButtonStates();
 }
