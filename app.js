@@ -8,21 +8,49 @@ function matchesAge(item) {
 }
 
 // Seções separadas da lista de Regiões
-const extrasList = ["Troca de Máscaras", "Troca de Itens (Biggoron)", "Bolsas e Upgrades"];
+const extrasList = ["Troca de Máscaras", "Troca de Itens (Biggoron)", "Bolsas e Melhorias"];
 
 const dungeonsList = [
-    "Deku Tree",
-    "Dodongo's Cavern",
-    "Jabu-Jabu's Belly",
-    "Forest Temple",
-    "Fire Temple",
-    "Water Temple",
-    "Shadow Temple",
-    "Spirit Temple",
-    "Bottom of the Well",
-    "Ice Cavern",
-    "Ganon's Castle"
+    "Grande Árvore Deko",
+    "Caverna dos Dodongos",
+    "Barriga de Jabu-Jabu",
+    "Templo da Floresta",
+    "Templo do Fogo",
+    "Templo da Água",
+    "Templo das Sombras",
+    "Templo do Espírito",
+    "Fundo do Poço",
+    "Caverna de Gelo",
+    "Castelo de Ganon"
 ];
+
+// Migração: o progresso das masmorras era salvo com os nomes em inglês
+const dungeonRenames = {
+    "Deku Tree": "Grande Árvore Deko",
+    "Dodongo's Cavern": "Caverna dos Dodongos",
+    "Jabu-Jabu's Belly": "Barriga de Jabu-Jabu",
+    "Forest Temple": "Templo da Floresta",
+    "Fire Temple": "Templo do Fogo",
+    "Water Temple": "Templo da Água",
+    "Shadow Temple": "Templo das Sombras",
+    "Spirit Temple": "Templo do Espírito",
+    "Bottom of the Well": "Fundo do Poço",
+    "Ice Cavern": "Caverna de Gelo",
+    "Ganon's Castle": "Castelo de Ganon"
+};
+(function migrateDungeonProgress() {
+    let changed = false;
+    Object.keys(dungeonRenames).forEach(oldName => {
+        const oldKey = `dungeon_${oldName}`;
+        const newKey = `dungeon_${dungeonRenames[oldName]}`;
+        if (oldKey in progress) {
+            if (progress[oldKey] && !progress[newKey]) progress[newKey] = true;
+            delete progress[oldKey];
+            changed = true;
+        }
+    });
+    if (changed) localStorage.setItem("ootProgress", JSON.stringify(progress));
+})();
 
 // ==================== GERAÇÃO ====================
 function generateRegions() {
@@ -161,8 +189,8 @@ function renderAndShowRegion(regionName) {
             // Passo travado: só libera depois que o anterior estiver marcado
             const locked = item.requires && !progress[item.requires];
 
-            const ageText = item.age === "child" ? "👦 Child" : item.age === "adult" ? "🧔 Adult" : "👦🧔 Both";
-            const timeText = item.time === "night" ? "🌙 Night" : "☀️🌙 Any";
+            const ageText = item.age === "child" ? "👦 Criança" : item.age === "adult" ? "🧔 Adulto" : "👦🧔 Ambos";
+            const timeText = item.time === "night" ? "🌙 Noite" : "☀️🌙 Qualquer hora";
 
             html += `
             <div class="item${locked ? ' locked' : ''}">
