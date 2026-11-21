@@ -263,7 +263,7 @@ const regions = {
     ],
 
     "Fundo do Poço": [
-        { id: "BW_GS_79", type: "goldSkulltula", name: "Sala do Like Like", age: "child", time: "any", note: "Skulltula #79 - Na sala central do Fundo do Poço, entre pela porta trancada à esquerda (sala com Baba Deko e potes voadores); a Skulltula está na parede do fundo.", wikiImage: "https://www.zeldadungeon.net/wiki/File:OoT-Gold-Skulltula-079.jpg" },
+        { id: "BW_GS_79", type: "goldSkulltula", name: "Sala do Like Like", age: "child", time: "any", note: "Skulltula #79 - Sala a leste do Fundo do Poço. Use a Lente da Verdade para achar o caminho até a sala; a Skulltula fica atrás do Like Like, então derrote-o (a Atiradeira funciona de longe) ou passe por ele.", wikiImage: "https://www.videogameschronicle.com/files/2026/11/IMG_7874-1.jpg" },
         { id: "BW_GS_80", type: "goldSkulltula", name: "Sala Invisível", age: "child", time: "any", note: "Skulltula #80 - Na sala central, entre pela porta trancada à direita (sala cheia de Keese). Derrote-os e use a Lente da Verdade para achar o caminho até a Skulltula.", wikiImage: "https://www.zeldadungeon.net/wiki/File:OoT-Gold-Skulltula-080.jpg" },
         { id: "BW_GS_81", type: "goldSkulltula", name: "Sala dos Fantasmas", age: "child", time: "any", note: "Skulltula #81 - No canto superior direito do mapa, rasteje por um buraco pequeno e use uma chave na porta trancada. Navegue com cuidado pelos buracos invisíveis até a sala com o Like Like; a Skulltula está na parede.", wikiImage: "https://www.zeldadungeon.net/wiki/File:OoT-Gold-Skulltula-081.jpg" }
     ],
