@@ -8,7 +8,7 @@ function matchesAge(item) {
 }
 
 // Seções separadas da lista de Regiões
-const extrasList = ["Troca de Máscaras", "Troca de Itens (Biggoron)", "Bolsas e Melhorias"];
+const extrasList = ["Troca de Máscaras", "Troca de Itens (Biggoron)", "Bolsas e Melhorias", "Garrafas"];
 
 const dungeonsList = [
     "Grande Árvore Deko",
@@ -305,7 +305,7 @@ function toggleDungeon(dungeonName) {
 }
 
 function updateProgress() {
-    let skulls = 0, hearts = 0, songs = 0, fairies = 0, beans = 0, maskDone = 0, maskTotal = 0, swordDone = 0, swordTotal = 0, bagDone = 0, bagTotal = 0, total = 0, completed = 0, dungeonsDone = 0;
+    let skulls = 0, hearts = 0, songs = 0, fairies = 0, beans = 0, maskDone = 0, maskTotal = 0, swordDone = 0, swordTotal = 0, bagDone = 0, bagTotal = 0, bottleDone = 0, bottleTotal = 0, total = 0, completed = 0, dungeonsDone = 0;
 
     Object.values(regions).forEach(region => {
         region.forEach(item => {
@@ -313,6 +313,7 @@ function updateProgress() {
             if (item.id.startsWith("MASK_")) maskTotal++;
             if (item.id.startsWith("BG_")) swordTotal++;
             if (item.id.startsWith("BAG_")) bagTotal++;
+            if (item.id.startsWith("BOTTLE_")) bottleTotal++;
             if (progress[item.id]) {
                 completed++;
                 if (item.type === "goldSkulltula") skulls++;
@@ -323,6 +324,7 @@ function updateProgress() {
                 if (item.id.startsWith("MASK_")) maskDone++;
                 if (item.id.startsWith("BG_")) swordDone++;
                 if (item.id.startsWith("BAG_")) bagDone++;
+                if (item.id.startsWith("BOTTLE_")) bottleDone++;
             }
         });
     });
@@ -348,6 +350,8 @@ function updateProgress() {
     if (swordEl) swordEl.textContent = `${swordDone}/${swordTotal}`;
     const bagEl = document.getElementById("bagCount");
     if (bagEl) bagEl.textContent = `${bagDone}/${bagTotal}`;
+    const bottleEl = document.getElementById("bottleCount");
+    if (bottleEl) bottleEl.textContent = `${bottleDone}/${bottleTotal}`;
 
     updateRegionButtonStates();
 }
