@@ -273,7 +273,6 @@ const regions = {
         { id: "IC_GS_69", type: "goldSkulltula", name: "Sala das Estátuas de Gelo", age: "adult", time: "any", note: "Skulltula #69 - Na sala da Bússola, use o Fogo Azul para derreter o Gelo Vermelho e siga para o leste. A Skulltula está num pilar alto; use o Gancho.", wikiImage: "https://www.videogameschronicle.com/files/2026/11/IMG_8007.jpg" },
         { id: "IC_GS_70", type: "goldSkulltula", name: "Fundo da Caverna de Gelo", age: "adult", time: "any", note: "Skulltula #70 - Na sala grande de empurrar blocos, a Skulltula está numa das paredes mais altas.", wikiImage: "https://www.videogameschronicle.com/files/2026/11/IMG_8006.jpg" },
 
-        { id: "IC_HP_29", type: "heartPiece", name: "Bloco de Gelo Vermelho", age: "adult", time: "any", note: "Pedaço de Coração #29 - Na sala da Bússola, há vários blocos de Gelo Vermelho. Precisa de uma garrafa vazia com Fogo Azul: use uma carga para derreter o gelo em volta do baú da Bússola, de um lado da sala, e encha a garrafa de novo na chama azul para derreter o gelo do outro lado, onde está o Pedaço de Coração (a Skulltula #69 fica na parede perto dele). Se o gelo ainda estiver lá, é porque a garrafa ficou vazia: volte à chama e encha de novo." }
     ],
 
     "Castelo de Ganon": [
